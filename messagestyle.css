@@ -1,0 +1,139 @@
+:root {
+    --primary: black;
+    --bg-color: black;
+    --bg-envelope-color: #f0ccc3;
+    --envelope-tab: #deb3a5;
+    --envelope-cover: #f0ccc3;
+    --shadow-color:black;
+    --txt-color: black;
+    --heart-color: #e11e42; /* Updated heart color */
+    --envelope-open-color: white; /* Adjusted color when the envelope is opened */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /*background: black;*/
+    background-color: lightgrey;
+    background-image: linear-gradient(black, grey, black);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.container > .envelope-wrapper {
+    background: var(--bg-envelope-color);
+    box-shadow: 0 0 40px var(--shadow-color);
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 25px;
+}
+
+.envelope-wrapper > .envelope {
+    position: relative;
+    width: 500px;
+    height: 400px;
+}
+
+.envelope-wrapper > .envelope::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    z-index: 2;
+    border-top: 200px solid var(--envelope-tab);
+    border-right: 250px solid transparent;
+    border-left: 250px solid transparent;
+    transform-origin: top;
+    transition: all 0.5s ease-in-out 0.7s;
+}
+.envelope-wrapper > .envelope::after {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    width: 0px;
+    height: 0px;
+    border-top: 200px solid transparent;
+    border-right: 250px solid var(--envelope-cover);
+    border-bottom: 200px solid var(--envelope-cover);
+    border-left: 250px solid var(--envelope-cover);
+}
+
+.envelope > .letter {
+    position: absolute;
+    right: 10%;
+    bottom: 0;
+    width: 80%;
+    height: 80%;
+    background: var(ecf1ec);
+    text-align: center;
+    transition: all 1s ease-in-out;
+    box-shadow: 0 0 5px var(--shadow-color);
+    padding: 20px;
+    overflow-y: auto;
+    transform-origin: bottom;
+    transform: scale(1);
+}
+
+.envelope > .letter > .text {
+    font-family: 'arial', 'arial', arial, 'arial MS', arial;
+    color: var(--txt-color);
+    text-align: left;
+    font-size: 10px;
+}
+
+.heart {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    background: var(--heart-color);
+    z-index: 4;
+    transform: translate(-50%, -20%) rotate(45deg);
+    transition: transform 0.5s ease-in-out 1s;
+    box-shadow: 0 1px 6px var(--shadow-color);
+    cursor: pointer;
+}
+
+.heart:before, 
+.heart:after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: var(--heart-color);
+    border-radius: 50%;
+}
+
+.heart:before {
+    top: -15px;
+}
+
+.heart:after {
+    right: 15px;
+}
+
+.flap > .envelope:before {
+    transform: rotateX(180deg);
+    z-index: 0;
+}
+
+.flap > .envelope > .letter {
+    bottom: 160px;
+    transform: scale(1.5);
+    transition-delay: 1s;
+    background: var(--envelope-open-color); /* Adjusted color when the envelope is opened */
+} 
+
+.flap > .heart {
+    transform: rotate(90deg);
+    transition-delay: 0.4s;
+}
